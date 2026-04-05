@@ -1,0 +1,29 @@
+services:
+  compendio:
+    image: compendio
+    hostname: compendio
+    restart: always
+    container_name: compendio
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      # ADD THIS SECTION IF you use NEXT_PUBLIC variables in your frontend code
+      args:
+        NEXT_PUBLIC_MONGODB_URI: 'mongodb+srv://cachorro_cami:Tengo1amo@cluster0.ffbyjzl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+    env_file: .env
+    environment:
+      PORT: 3000
+      # These are perfect here (Runtime Secrets)
+      MONGODB_URI: ${MONGODB_URI}
+      DATABASE_URL: postgresql://postgres:Tengo1amo@postgres:5432/RyS?schema=public
+      NODE_ENV: production
+    ports:
+      - 8888:3000
+    expose:
+      - 3000
+    networks:
+      - internal
+networks:
+  internal:
+    external: true
+    name: internal

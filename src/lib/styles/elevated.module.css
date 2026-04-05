@@ -1,0 +1,50 @@
+.container, .containerDisabled, .containerEnabled {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  padding: 1rem;
+  border: none;
+  border-radius: var(--shape-corner-medium);
+  background: var(--surface-container-low);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--elevation-1);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.container::before, .containerDisabled::before, .containerEnabled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  display: block;
+  background-color: var(--surface-tint);
+  border-radius: inherit;
+  opacity: 0.2;
+  z-index: -1;
+  transition: opacity 0.3s;
+}
+.container:hover, .containerDisabled:hover, .containerEnabled:hover {
+  box-shadow: var(--elevation-2);
+  background-color: var(--surface-container-high);
+}
+.container:hover::before, .containerDisabled:hover::before, .containerEnabled:hover::before {
+  opacity: 0.5;
+}
+.container:focus, .containerDisabled:focus, .containerEnabled:focus {
+  border: 0.3rem solid var(--secondary);
+  box-shadow: var(--elevation-1);
+}
+.container:focus::before, .containerDisabled:focus::before, .containerEnabled:focus::before {
+  opacity: 0.08;
+}
+.containerEnabled {
+  background-color: var(--surface-container);
+  box-shadow: var(--elevation-1);
+}
+.containerDisabled {
+  background-color: var(--surface-variant);
+  box-shadow: var(--elevation-0);
+  opacity: 0.38;
+  pointer-events: none;
+}

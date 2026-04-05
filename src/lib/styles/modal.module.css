@@ -1,0 +1,170 @@
+.open {
+  container-name: modal;
+  container-type: inline-size;
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-contaier);
+  backdrop-filter: blur(2px);
+  opacity: 1;
+  transition: all 1.5s ease-in-out;
+}
+.open .wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  justify-items: stretch;
+  width: 90vw;
+  height: 90svh;
+  padding: 2vmin;
+  gap: 8px;
+  background-color: var(--surface-variant);
+  color: var(--on-surface-variant);
+  border-radius: 2vmin;
+  box-shadow: var(--dp20);
+  overflow: scroll;
+}
+.open .wrapper > * {
+  width: 100%;
+}
+
+.closed {
+  display: none;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.snackbar {
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 2rem;
+  min-width: 250px;
+  margin-left: -125px;
+  padding: 1rem;
+  background-color: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  text-align: center;
+  border-radius: var(--shape-corner-extra-small);
+  box-shadow: var(--elevation-3);
+  visibility: hidden;
+}
+.snackbar.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+.snackbar.hide {
+  visibility: hidden;
+  opacity: 0;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-dim);
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 400px;
+  padding: 1.5rem;
+  gap: 1rem;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border-radius: 12px;
+  box-shadow: var(--elevation-5);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0;
+  color: var(--on-surface-variant);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.actionGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.cancelBtn {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.cancelBtn:hover:not(:disabled) {
+  background-color: var(--surface-dim);
+}
+.cancelBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.confirmBtn {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.confirmBtn:hover:not(:disabled) {
+  background-color: var(--error);
+}
+.confirmBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

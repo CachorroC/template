@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, interactive-widget=resizes-content"
+    />
+
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#81C784"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#2E7D32"
+    />
+    <meta
+      name="color-scheme"
+      content="light dark"
+    />
+
+    <title>Vademecum y compendio Colombiano</title>
+    <meta
+      name="description"
+      content="Una recopilación herbal orientada a la producción de saber sobre plantas medicinales ancestrales de Colombia."
+    />
+    <meta
+      name="application-name"
+      content="compendio Nativo"
+    />
+    <meta
+      name="referrer"
+      content="origin-when-cross-origin"
+    />
+    <meta
+      name="keywords"
+      content="Vademecum, compendio, Colombia, Vademecum Colombiano, Hierbas Nativas de Colombia"
+    />
+    <meta
+      name="author"
+      content="Luis Enrique Rodriguez, Juan Camilo Suárez, Paola Giraldo"
+    />
+    <meta
+      name="creator"
+      content="Juan Camilo Suárez"
+    />
+    <meta
+      name="publisher"
+      content="Rodriguez, Giraldo y Suárez"
+    />
+
+    <meta
+      name="format-detection"
+      content="telephone=no, address=no, email=no"
+    />
+
+    <meta
+      name="apple-mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="compendio Colombiano"
+    />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/logo.svg"
+    />
+
+    <link
+      rel="manifest"
+      href="/manifest.webmanifest"
+    />
+
+    <style>
+      /* ========================================================
+       1. THEME VARIABLES (Natural Medical & Healing Vibes)
+       ======================================================== */
+      :root {
+        /* Light Theme (Earthy & Soothing) */
+        --primary: rgb(51 79 43);
+        --surface-tint: rgb(73 102 64);
+        --on-primary: rgb(255 255 255);
+        --primary-container: rgb(74 103 65);
+        --on-primary-container: rgb(194 228 180);
+        --secondary: rgb(112 67 42);
+        --on-secondary: rgb(255 255 255);
+        --secondary-container: rgb(140 90 64);
+        --on-secondary-container: rgb(255 222 207);
+        --tertiary: rgb(90 96 85);
+        --on-tertiary: rgb(255 255 255);
+        --tertiary-container: rgb(140 147 134);
+        --on-tertiary-container: rgb(37 44 34);
+        --error: rgb(186 26 26);
+        --on-error: rgb(255 255 255);
+        --error-container: rgb(255 218 214);
+        --on-error-container: rgb(147 0 10);
+        --background: rgb(250 250 244);
+        --on-background: rgb(26 28 25);
+        --surface: rgb(250 250 244);
+        --on-surface: rgb(26 28 25);
+        --surface-variant: rgb(223 228 216);
+        --on-surface-variant: rgb(67 72 64);
+        --outline: rgb(115 121 111);
+        --outline-variant: rgb(195 200 189);
+        --shadow: rgb(0 0 0);
+        --scrim: rgb(0 0 0);
+        --inverse-surface: rgb(47 49 45);
+        --inverse-on-surface: rgb(241 241 235);
+        --inverse-primary: rgb(175 208 161);
+        --primary-fixed: rgb(202 236 188);
+        --on-primary-fixed: rgb(6 33 4);
+        --primary-fixed-dim: rgb(175 208 161);
+        --on-primary-fixed-variant: rgb(50 78 42);
+        --secondary-fixed: rgb(255 219 203);
+        --on-secondary-fixed: rgb(51 18 1);
+        --secondary-fixed-dim: rgb(248 184 153);
+        --on-secondary-fixed-variant: rgb(104 60 36);
+        --tertiary-fixed: rgb(222 229 214);
+        --on-tertiary-fixed: rgb(23 29 20);
+        --tertiary-fixed-dim: rgb(194 201 187);
+        --on-tertiary-fixed-variant: rgb(66 73 62);
+        --surface-dim: rgb(218 218 213);
+        --surface-bright: rgb(250 250 244);
+        --surface-container-lowest: rgb(255 255 255);
+        --surface-container-low: rgb(244 244 238);
+        --surface-container: rgb(238 238 232);
+        --surface-container-high: rgb(233 232 227);
+        --surface-container-highest: rgb(227 227 221);
+
+        /* Shapes & Shadows */
+        --shape-corner-large: 16px;
+        --shape-corner-small: 8px;
+        --dp2: 0 2px 4px rgba(46, 125, 50, 0.1);
+        --dp6: 0 6px 10px rgba(46, 125, 50, 0.14);
+        --dp8: 0 8px 10px rgba(46, 125, 50, 0.14);
+        --dp9: 0 9px 12px rgba(46, 125, 50, 0.14);
+
+        /* Typography Setup */
+        --play-display: 'Georgia', serif;
+        --raleway: 'Helvetica Neue', Arial, sans-serif;
+        --shape-corner-full: 3rem;
+        --shape-corner-extra-large-top: 2rem 2rem 0 0;
+        --shape-corner-extra-large-bottom: 0 0 2rem 2rem;
+        --shape-corner-extra-large-end: 0 2rem 2rem 0;
+        --shape-corner-extra-large-start: 2rem 0 0 2rem;
+        --shape-corner-extra-large: 2rem;
+        --shape-corner-medium: 0.8rem;
+        --shape-corner-large-top: 1rem 1rem 0 0;
+        --shape-corner-large-bottom: 0 0 1rem 1rem;
+        --shape-corner-large-end: 0 1rem 1rem 0;
+        --shape-corner-large-start: 1rem 0 0 1rem;
+        --shape-corner-extra-small: 0.4rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --primary: rgb(175 208 161);
+          --surface-tint: rgb(175 208 161);
+          --on-primary: rgb(28 55 22);
+          --primary-container: rgb(74 103 65);
+          --on-primary-container: rgb(194 228 180);
+          --secondary: rgb(248 184 153);
+          --on-secondary: rgb(77 38 16);
+          --secondary-container: rgb(140 90 64);
+          --on-secondary-container: rgb(255 222 207);
+          --tertiary: rgb(194 201 187);
+          --on-tertiary: rgb(44 50 40);
+          --tertiary-container: rgb(140 147 134);
+          --on-tertiary-container: rgb(37 44 34);
+          --error: rgb(255 180 171);
+          --on-error: rgb(105 0 5);
+          --error-container: rgb(147 0 10);
+          --on-error-container: rgb(255 218 214);
+          --background: rgb(18 20 17);
+          --on-background: rgb(227 227 221);
+          --surface: rgb(18 20 17);
+          --on-surface: rgb(227 227 221);
+          --surface-variant: rgb(67 72 64);
+          --on-surface-variant: rgb(195 200 189);
+          --outline: rgb(141 146 136);
+          --outline-variant: rgb(67 72 64);
+          --shadow: rgb(0 0 0);
+          --scrim: rgb(0 0 0);
+          --inverse-surface: rgb(227 227 221);
+          --inverse-on-surface: rgb(47 49 45);
+          --inverse-primary: rgb(73 102 64);
+          --primary-fixed: rgb(202 236 188);
+          --on-primary-fixed: rgb(6 33 4);
+          --primary-fixed-dim: rgb(175 208 161);
+          --on-primary-fixed-variant: rgb(50 78 42);
+          --secondary-fixed: rgb(255 219 203);
+          --on-secondary-fixed: rgb(51 18 1);
+          --secondary-fixed-dim: rgb(248 184 153);
+          --on-secondary-fixed-variant: rgb(104 60 36);
+          --tertiary-fixed: rgb(222 229 214);
+          --on-tertiary-fixed: rgb(23 29 20);
+          --tertiary-fixed-dim: rgb(194 201 187);
+          --on-tertiary-fixed-variant: rgb(66 73 62);
+          --surface-dim: rgb(18 20 17);
+          --surface-bright: rgb(56 58 54);
+          --surface-container-lowest: rgb(13 15 12);
+          --surface-container-low: rgb(26 28 25);
+          --surface-container: rgb(30 32 29);
+          --surface-container-high: rgb(41 42 39);
+          --surface-container-highest: rgb(52 53 50);
+        }
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--raleway);
+        background-color: var(--surface-container);
+        color: var(--on-surface);
+      }
+
+      /* ========================================================
+       2. COMPILED SCSS CLASSES
+       ======================================================== */
+      .container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+        gap: 0em 0em;
+        grid-template-areas:
+          'main main main main'
+          'main main main main'
+          'main main main main'
+          'main main main main'
+          'main main main main'
+          'main main main main'
+          'main main main main'
+          'main main main main'
+          'main main main main'
+          'header header header header';
+        transition: all 0.5s;
+        width: 100vw;
+        padding: 0;
+        height: 100svh;
+        box-sizing: border-box;
+        background-color: var(--surface-container);
+        grid-auto-flow: row;
+        overflow: hidden;
+        font-variation-settings:
+          'FILL' 1,
+          'wght' 700,
+          'GRAD' 0,
+          'opsz' 48;
+      }
+
+      @media (min-width: 1201px) {
+        .container {
+          padding: 0;
+          gap: 1rem;
+          grid-template-columns: 5rem repeat(9, minmax(8vw, 1fr));
+          grid-template-rows: repeat(10, minmax(6svh, 1fr));
+          grid-template-areas:
+            'header top top top top top top top top top'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main'
+            'header main main main main main main main main main';
+        }
+      }
+
+      .header {
+        display: grid;
+        grid-template-columns: subgrid;
+        transition: 300ms;
+        max-width: 100vw;
+        grid-area: header;
+        gap: inherit;
+        padding: 0.7rem;
+        z-index: 10;
+      }
+
+      .header .nav {
+        display: grid;
+        background-color: var(--nav-background);
+        border-radius: var(--shape-corner-small);
+      }
+
+      .main {
+        grid-area: main;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+
+      .mainContent,
+      .mainContentColumn,
+      .mainContentGrid {
+        box-sizing: border-box;
+        width: 100%;
+        background-color: var(--surface);
+        border-radius: var(--shape-corner-large);
+        max-width: 100vw;
+        gap: 1rem;
+        counter-reset: num;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-flow: column;
+        align-content: stretch;
+        height: max-content;
+        overflow: visible;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-columns: 1fr;
+        grid-auto-rows: 300px;
+        padding: 2rem;
+      }
+
+      .mainContent > *,
+      .mainContentColumn > *,
+      .mainContentGrid > * {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 20%;
+        align-self: stretch;
+        order: 0;
+      }
+
+      .mainContentColumn {
+        flex-flow: column wrap;
+      }
+      .mainContentColumn > * {
+        flex: 0 1 calc(50% - 4vmin);
+      }
+
+      .mainContentGrid {
+        display: grid;
+        padding: 0;
+        grid-auto-columns: 1fr;
+        grid-auto-rows: 1fr;
+        gap: 0px 0px;
+      }
+
+      @media (max-width: 599px) {
+        .mainContent,
+        .mainContentColumn {
+          display: flex;
+          flex-flow: column nowrap;
+          border-radius: 0;
+          padding-bottom: 5rem;
+        }
+        .mainContentColumn > * {
+          flex: 1 1 auto;
+        }
+        .mainContentGrid {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+      }
+
+      .complementaryContent {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--shape-corner-large);
+        padding: 2rem;
+        align-content: stretch;
+        background-color: var(--surface);
+        gap: 1rem;
+        box-sizing: border-box;
+        box-shadow: var(--dp2);
+        height: max-content;
+        overflow: visible;
+        min-height: 250px;
+      }
+
+      @media (max-width: 599px) {
+        .complementaryContent {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: center;
+          border-radius: 1rem 1rem 0 0;
+        }
+      }
+
+      /* Miscellaneous Layout & Typography Helpers */
+      h1.offline-title {
+        font-family: var(--play-display);
+        font-size: 3rem;
+        color: var(--secondary);
+        margin: 0;
+        text-align: center;
+      }
+
+      p.offline-text {
+        font-size: 1.2rem;
+        text-align: center;
+        color: var(--on-surface-variant);
+      }
+
+      .prohibit-icon {
+        width: 120px;
+        height: 120px;
+        color: var(--secondary);
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <nav class="nav"> </nav>
+      </header>
+
+      <main class="main">
+        <div class="mainContent">
+          <h1 class="offline-title">Fuera de línea</h1>
+          <p class="offline-text"
+            >Por favor, comprueba tu conexión a internet para acceder a la
+            recopilación herbal.</p
+          >
+        </div>
+
+        <aside class="complementaryContent">
+          <svg
+            class="prohibit-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            ></circle>
+            <line
+              x1="4.93"
+              y1="4.93"
+              x2="19.07"
+              y2="19.07"
+            ></line>
+          </svg>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

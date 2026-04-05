@@ -1,0 +1,132 @@
+@mixin material-icon($fill: 0, $wght: 300, $grad: 0, $opsz: 24) {
+  font-variation-settings:
+    'FILL' $fill,
+    'wght' $wght,
+    'GRAD' $grad,
+    'opsz' $opsz;
+}
+
+@mixin interaction-layer(
+  $bg-color: currentColor,
+  $hover-op: 0.08,
+  $active-op: 0.1,
+  $z-index: auto
+) {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    background-color: $bg-color;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: $z-index;
+  }
+
+  &:hover::before {
+    opacity: $hover-op;
+  }
+
+  &:focus::before,
+  &:active::before,
+  &:focus-visible::before {
+    opacity: $active-op;
+  }
+}
+
+@mixin interaction-overlay($hover-opacity: 0.08, $focus-opacity: 0.1) {
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: all 0.5s;
+    pointer-events: none;
+    background-color: currentColor;
+  }
+
+  &:hover::after {
+    opacity: $hover-opacity;
+  }
+
+  &:focus::after,
+  &:active::after,
+  &:focus-visible::after {
+    opacity: $focus-opacity;
+  }
+}
+
+@mixin md3-button-variant(
+  $bg-color,
+  $text-color,
+  $hover-bg,
+  $hover-text,
+  $overlay-color,
+  $icon-color: $text-color,
+  $hover-icon-color: $hover-text
+) {
+  background-color: $bg-color;
+  color: $text-color;
+
+  .md3BtnIcon {
+    color: $icon-color;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $hover-bg;
+    color: $hover-text;
+
+    .md3BtnIcon {
+      color: $hover-icon-color;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: $overlay-color;
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short)
+      var(--md-sys-motion-easing-standard);
+  }
+
+  > * {
+    z-index: 1;
+    position: relative;
+  }
+
+  &:hover::before {
+    opacity: var(--md-sys-state-hover);
+  }
+
+  &:focus-visible::before {
+    opacity: var(--md-sys-state-focus);
+  }
+
+  &:active::before {
+    opacity: var(--md-sys-state-pressed);
+  }
+
+  &:disabled {
+    background-color: color-mix(in srgb, var(--on-surface) 12%, transparent);
+    color: color-mix(in srgb, var(--on-surface) 38%, transparent);
+    cursor: not-allowed;
+    pointer-events: none;
+
+    .md3BtnIcon {
+      color: color-mix(in srgb, var(--on-surface) 38%, transparent);
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+}

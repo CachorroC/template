@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  border-radius: var(--shape-corner-medium);
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: var(--elevation-1);
+  }
+
+  &Enabled {
+    @extend .container;
+    background-color: var(--surface-container-high);
+    box-shadow: var(--elevation-0);
+
+    & > & {
+      background-color: var(--surface-container-highest);
+    }
+
+    &:hover {
+      box-shadow: var(--elevation-1);
+    }
+  }
+
+  &Disabled {
+    @extend .container;
+    background-color: var(--surface-variant);
+    opacity: 0.38;
+    pointer-events: none;
+  }
+}
+
+.button {
+  border-radius: var(--shape-corner-full);
+  height: 2.8rem;
+  box-shadow: var(--elevation-0);
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: var(--elevation-1);
+  }
+
+  &Enabled {
+    @extend .button;
+
+    &:link {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    &:visited {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+  }
+}

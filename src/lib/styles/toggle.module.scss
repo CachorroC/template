@@ -1,0 +1,84 @@
+/* lib/styles/toggle.module.css */
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+/* .switch is the container that gives relative positioning bounds for the track (the pill shape) */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+/* The actual checkbox is completely hidden but controls the state via :checked */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  position: absolute;
+}
+
+/* .slider corresponds to the visually rendered TRACK (the pill background).
+ * Unselected styling: track background is 'surface container highest' with a 2px outline border.
+ */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--surface-container-highest, #e6e0e9);
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 16px;
+  border: 2px solid var(--outline, #79747e);
+  box-sizing: border-box;
+
+  /* The pseudo-element &:before creates the HANDLE (the inner dot/circle).
+   * Unselected styling: 16x16px size, set 6px from the left, using 'outline' color.
+   */
+  &:before {
+    position: absolute;
+    content: '';
+    height: 16px;
+    width: 16px;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--outline, #79747e);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+  }
+}
+
+/* When checked: TRACK background and border colors switch to the 'primary' brand color. */
+.switch input:checked + .slider {
+  background-color: var(--primary, #6750a4);
+  border-color: var(--primary, #6750a4);
+}
+
+/* When checked: HANDLE (the dot) expands to 24x24px, pushes right, and uses the contrasting 'on-primary' color. */
+.switch input:checked + .slider:before {
+  height: 24px;
+  width: 24px;
+  left: calc(100% - 24px - 4px);
+  background-color: var(--on-primary, #ffffff);
+}
+
+/* Optional keyboard focus indicator for accessibility tab navigation */
+.switch input:focus-visible + .slider {
+  outline: 2px solid var(--primary, #6750a4);
+  outline-offset: 2px;
+}
+
+.labelText {
+  font-size: 1rem;
+  color: var(--on-surface, #1c1b1f);
+}

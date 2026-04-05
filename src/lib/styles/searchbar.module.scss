@@ -1,0 +1,102 @@
+@use 'mixins' as m;
+
+.searchContainer {
+  grid-area: inputSearchBar;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0;
+  background-color: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  border-radius: var(--shape-corner-full);
+  box-shadow: var(--elevation-3);
+
+  .input {
+    flex-grow: 1;
+    padding: 10px;
+    background: transparent;
+    color: var(--on-surface-variant);
+    border: none;
+    border-radius: var(--shape-corner-extra-large-start);
+    font-family: var(--josefa);
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    @include m.interaction-layer(var(--on-surface));
+
+    &Container {
+      @extend .input;
+      display: flex;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: var(--primary-container);
+      box-shadow: var(--dp4);
+    }
+  }
+
+  .icon {
+    padding: 0 1rem;
+    color: var(--on-surface);
+    border: none;
+    border-radius: var(--shape-corner-extra-large-end);
+    background: transparent;
+
+    @include m.interaction-layer(var(--on-surface));
+
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: var(--dp4);
+    }
+  }
+}
+
+.inputForm {
+  grid-area: InputSearchBar;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  background-color: var(--tertiary-container);
+  box-shadow: var(--dp3);
+  transition: all 0.3s;
+
+  & > .icon {
+    color: var(--secondary);
+    @include m.material-icon(0, 200, 0, 24);
+  }
+
+  &:link {
+    background-color: var(--surface-container);
+    color: var(--on-surface);
+  }
+
+  &:visited {
+    background-color: var(--primary);
+    color: var(--on-surface-variant);
+  }
+
+  &:hover {
+    background-color: var(--primary-container);
+    color: var(--primary);
+    border: 3px solid var(--outline);
+
+    & > .icon {
+      color: var(--secondary);
+      @include m.material-icon(1, 600, 200, 48);
+    }
+  }
+}
+
+@container link (200px < width < 300px) {
+  .isActive {
+    box-shadow: var(--dp12);
+  }
+}
+
+.title {
+  flex: 1;
+}

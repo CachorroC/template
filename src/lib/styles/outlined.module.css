@@ -1,0 +1,21 @@
+.container, .containerEnabled {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  border-radius: var(--shape-corner-medium);
+  transition: box-shadow 0.3s;
+}
+.container:hover, .containerEnabled:hover {
+  box-shadow: var(--elevation-1);
+}
+.containerEnabled {
+  background-color: var(--surface);
+  border: 0.1rem solid var(--outline-variant);
+}
+.containerEnabled:hover {
+  box-shadow: var(--elevation-1);
+}

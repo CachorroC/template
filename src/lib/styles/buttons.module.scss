@@ -1,0 +1,490 @@
+@use 'mixins' as m;
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+.button {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 2vmin;
+  outline: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+
+  @media (600px < width < 1200px) {
+    flex-flow: row nowrap;
+  }
+  @include m.interaction-layer();
+
+  > .icon {
+    font-size: 1.1rem;
+  }
+
+  > .text {
+    font-family: var(--raleway);
+    word-wrap: break-word;
+    word-break: break-all;
+    font-style: var(--label-medium-font-family-style);
+    font-weight: var(--label-medium-font-weight);
+    font-size: var(--label-medium-font-size);
+    letter-spacing: var(--label-medium-tracking);
+    line-height: var(--label-medium-height);
+    text-transform: var(--label-medium-text-transform);
+    text-decoration: var(--label-medium-text-decoration);
+  }
+
+  > .ButtonTextHelper {
+    display: none;
+    opacity: 0;
+    transition: all 1s;
+  }
+
+  &:hover {
+    > .icon {
+      color: var(--primary-container);
+      @include m.material-icon(1, 400, 0, 48);
+    }
+  }
+
+  &:hover,
+  &:active {
+    background-color: var(--primary-fixed);
+    box-shadow: var(--dp6);
+    border: 2px solid var(--outline);
+
+    > span {
+      color: var(--on-primary-fixed);
+      @include m.material-icon(1, 400, 200, 24);
+    }
+  }
+
+  &Edit {
+    @extend .button;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+  }
+
+  &ActiveCategory {
+    @extend .button;
+    flex: 2;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    border: 0.02rem solid var(--outline);
+
+    > .icon,
+    > .text {
+      color: var(--on-surface);
+    }
+
+    &::before {
+      background-color: var(--on-secondary-container);
+    }
+  }
+
+  &PassiveCategory {
+    @extend .button;
+    background-color: var(--surface-container-high);
+    color: var(--secondary);
+    border: 0.02rem solid var(--outline);
+
+    > .icon {
+      color: var(--secondary);
+    }
+    > .text {
+      color: var(--on-surface);
+    }
+
+    &::before {
+      background-color: var(--on-secondary-container);
+    }
+  }
+
+  &Forward {
+    @extend .button;
+    grid-area: forwardButton;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+    padding: 0;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+
+    > .icon,
+    > .text {
+      color: var(--on-primary-container);
+    }
+  }
+
+  &Backwards {
+    @extend .button;
+    grid-area: backwardsButton;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+    padding: 0;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+
+    > .icon,
+    > .text {
+      color: var(--on-primary-container);
+    }
+  }
+
+  &Drawer {
+    @extend .button;
+    border: none;
+
+    &Closed {
+      @extend .button;
+      border: none;
+      background-color: transparent;
+
+      > .icon,
+      > .text {
+        color: var(--on-surface-variant);
+        filter: drop-shadow(var(--scrim));
+      }
+
+      &::before {
+        background-color: var(--surface-variant);
+      }
+    }
+
+    &Open {
+      background-color: var(--secondary);
+    }
+  }
+
+  &DrawerMenu {
+    @extend .button;
+    grid-area: drawerMenuButton;
+    flex: 2 1 auto;
+    background-color: var(--secondary);
+    border: none;
+
+    &Closed {
+      @extend .button;
+      width: auto;
+      height: 4rem;
+      border: none;
+      background-color: transparent;
+
+      > .icon,
+      > .text {
+        color: var(--on-surface-variant);
+        filter: drop-shadow(var(--scrim));
+      }
+
+      &::before {
+        background-color: var(--surface-variant);
+      }
+    }
+
+    &Open {
+      background-color: var(--secondary);
+      > .icon {
+        color: var(--on-secondary);
+      }
+    }
+  }
+
+  &Modal {
+    @extend .button;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+
+    > .icon,
+    > .text {
+      color: var(--on-primary-container);
+    }
+
+    &:hover {
+      background-color: var(--surface-container);
+      box-shadow: var(--dp8);
+      &::before {
+        background-color: var(--on-primary);
+      }
+    }
+
+    &:focus,
+    &:active {
+      box-shadow: var(--dp9);
+      &::before {
+        background-color: var(--on-primary-container);
+      }
+    }
+  }
+
+  &Home {
+    @extend .button;
+    grid-area: homeButton;
+    flex: 2 1 auto;
+    background-color: var(--primary);
+    color: var(--on-primary);
+    box-shadow: var(--dp2);
+
+    > .icon,
+    > .text {
+      color: var(--on-primary);
+    }
+  }
+
+  &Chip {
+    @extend .button;
+    flex: 0 1 auto;
+    height: minmax(2rem, 3rem);
+  }
+}
+
+.active {
+  background-color: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+}
+
+.snackbar {
+  position: fixed;
+  z-index: 1;
+  bottom: 30px;
+  left: 50%;
+  min-width: 250px;
+  margin-left: -125px;
+  padding: 16px;
+  background-color: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  font-size: 17px;
+  text-align: center;
+  border-radius: 2px;
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+    animation:
+      fadein 0.5s,
+      fadeout 0.5s 2.5s;
+  }
+}
+
+.searchBarLink,
+.link {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: stretch;
+  width: 100%;
+  min-width: 0;
+  max-height: 5rem;
+  padding: 0.2rem;
+  gap: 0.3rem;
+  border-radius: 2vmin;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+
+  @include m.interaction-layer(var(--on-surface));
+
+  > .icon {
+    color: var(--on-surface-variant);
+    text-align: center;
+  }
+
+  > .text {
+    width: 100%;
+    color: var(--on-surface-variant);
+    font-family: inherit;
+    font-style: var(--label-medium-font-family-style);
+    font-weight: var(--label-medium-font-weight);
+    font-size: 0.7rem;
+    font-variation-settings: 'wght' 500;
+    letter-spacing: var(--label-medium-tracking);
+    line-height: var(--label-medium-height);
+    text-align: center;
+    text-transform: var(--label-medium-text-transform);
+    text-decoration: var(--label-medium-text-decoration);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 1;
+  }
+
+  .date {
+    grid-area: date;
+    align-self: center;
+    padding: 0.2rem;
+    background-color: var(--surface);
+    color: var(--on-surface);
+    border-radius: 2vmin;
+    font-family: var(--play-display);
+  }
+
+  .sub {
+    color: var(--secondary);
+  }
+
+  &Active {
+    @extend .link;
+    > .text {
+      color: var(--on-surface);
+    }
+    > .icon {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0.2rem 0;
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+      border-radius: 1rem;
+    }
+  }
+
+  &Open {
+    @extend .link;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    padding: 1rem;
+    gap: 0.8rem;
+
+    &Active {
+      @extend .linkOpen;
+      background-color: var(--secondary-container);
+      color: var(--on-secondary-container);
+      > .text {
+        color: var(--on-secondary-container);
+      }
+      > .icon {
+        width: 3.5rem;
+        padding: 0.2rem 0;
+        color: var(--on-secondary-container);
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  &NotActive {
+    @extend .link;
+    background-color: var(--surface-container);
+    color: var(--on-surface);
+  }
+
+  &IsActive {
+    @extend .link;
+    background-color: var(--primary);
+    color: var(--on-primary);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    > .icon {
+      @include m.material-icon(1, 600, 200, 40);
+    }
+  }
+}
+
+.notActive {
+  @extend .searchBarLink;
+  .date {
+    display: none;
+  }
+}
+
+.isActive {
+  @extend .searchBarLink;
+  .date {
+    display: flex;
+  }
+}
+
+.md3Btn {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: var(--md-btn-gap);
+  background: transparent;
+  border: none;
+  border-radius: var(--shape-corner-full);
+  outline: none;
+  vertical-align: middle;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background-color var(--md-sys-motion-duration-short)
+      var(--md-sys-motion-easing-standard),
+    color var(--md-sys-motion-duration-short)
+      var(--md-sys-motion-easing-standard);
+  font-family: var(--label-large-font-family-name);
+  font-size: var(--label-large-font-size);
+  font-weight: var(--label-large-font-weight);
+  line-height: var(--label-large-line-height);
+  letter-spacing: var(--label-large-letter-spacing);
+
+  &:has(.md3BtnIcon) {
+    padding-left: var(--md-btn-icon-padding-start);
+    padding-right: var(--md-btn-icon-padding-end);
+  }
+}
+
+.md3BtnIcon {
+  flex-shrink: 0;
+  width: var(--md-btn-icon-size);
+  height: var(--md-btn-icon-size);
+
+  transition: color var(--md-sys-motion-duration-short)
+    var(--md-sys-motion-easing-standard);
+}
+
+.md3BtnTonal {
+  @extend .md3Btn;
+  @include m.md3-button-variant(
+    var(--secondary-container),
+    var(--on-secondary-container),
+    var(--secondary),
+    var(--on-secondary),
+    var(--on-secondary-container),
+    var(--on-secondary-container),
+    var(--on-secondary)
+  );
+}
+
+.md3BtnTonalPrimary {
+  @extend .md3Btn;
+  @include m.md3-button-variant(
+    var(--primary),
+    var(--on-primary),
+    var(--primary-container),
+    var(--on-primary-container),
+    var(--on-primary-container),
+    var(--on-primary),
+    var(--on-primary-container)
+  );
+}

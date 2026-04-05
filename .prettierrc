@@ -1,0 +1,9 @@
+{
+  "singleAttributePerLine": true,
+  "singleQuote": true,
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "strict"
+}
