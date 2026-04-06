@@ -34,8 +34,12 @@ export function PushNotificationManager() {
           subscription
         ),
       ) as WebPushSubscription;
-      await sendNotification(message, serializedSub);
-      setMessage('');
+      await sendNotification(
+        message, serializedSub 
+      );
+      setMessage(
+        '' 
+      );
     }
   }
 
