@@ -3,15 +3,48 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "styles:tcm": "tcm src",
+    "sass": "sass --no-source-map src:src && tcm src",
+    "lint": "next lint --fix --strict && next lint --strict",
+    "devbuild": "sass --no-source-map src:src && tcm src && eslint --fix . && next build",
+    "build": "sass --no-source-map src:src && tcm src && next build",
+    "dev": "sass --no-source-map src:src && tcm src && URL=beta.rsasesorjuridico.com NEXTAUTH_URL=https://beta.rsasesorjuridico.com next dev",
     "start": "next start",
-    "lint": "eslint"
+    "db:migrate": "prisma migrate dev --name init --create-only && prisma generate",
+    "db:push": "prisma db push",
+    "json-to-prisma": "json-to-prisma-schema-convertor convert --inputPath='./prisma/schema.json' --outputPath='./prisma/new/schema.prisma'",
+    "db:test": "tsx scripts/test-database.ts",
+    "db:studio": "prisma studio",
+    "prisma:generate": "prisma generate && ts-node src/lib/scripts/generate-dmmf.ts",
+    "postinstall": "node src/lib/scripts/enforce-strict-css.js"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@eslint/js": "^10.0.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/lab": "7.0.1-beta.23",
+    "@mui/material": "^7.3.9",
+    "@mui/material-nextjs": "^7.3.9",
+    "@mui/x-data-grid": "^8.28.2",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/web-push": "^3.6.4",
+    "dotenv": "^17.4.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0",
+    "jiti": "^2.6.1",
+    "material-symbols": "^0.44.0",
+    "mongodb": "^7.1.1",
     "next": "16.2.2",
+    "next-auth": "^4.24.13",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "sass": "^1.99.0",
+    "tsx": "^4.21.0",
+    "typed-css-modules": "^0.9.1",
+    "typed-scss-modules": "^8.1.1",
+    "typescript-eslint": "^8.58.0",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -20,6 +53,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-plugin-css-modules": "^5.2.0"
   }
 }

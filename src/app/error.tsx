@@ -4,16 +4,24 @@ import styles from 'styles/card.module.css';
 import { useEffect } from 'react';
 import typography from 'styles/fonts/typography.module.css';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
+export default function Error(
+  {
+    error,
+    reset,
+  }: {
+    error: Error & { digest?: string };
+    reset: () => void;
+  } 
+) {
+  useEffect(
+    () => {
+      console.error(
+        error 
+      );
+    }, [
+      error
+    ] 
+  );
 
   return (
     <div className={styles.errorContainer}>
