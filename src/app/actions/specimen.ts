@@ -7,7 +7,6 @@ import { ObjectId } from 'mongodb'; // Adjust this import path if needed
 import { promises as fs } from 'fs';
 import path from 'path';
 import clientPromise from '#@/lib/connection/mongodb';
-import { EspecimenType } from '#@/lib/types/especimenTypes';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 // --- UPSERT ACTIONS ---
@@ -19,11 +18,11 @@ async function upsertSpecimenToDB(
 ) {
   try {
     const client = await clientPromise;
-    const database = client.db(
-      'botany_db'
-    );
+    const DB_NAME = process.env.DATABASE_NAME ?? 'botany_db';
+    const COLLECTION_NAME = process.env.COLLECTION_NAME ?? 'plantas_medicinales';
+    const database = client.db(DB_NAME);
     const specimens = database.collection<EspecimenType>(
-      'plantas_medicinales'
+      COLLECTION_NAME
     );
 
     const {
@@ -224,11 +223,11 @@ async function deleteSpecimenFromDB(
 ) {
   try {
     const client = await clientPromise;
-    const database = client.db(
-      'botany_db'
-    );
+    const DB_NAME = process.env.DATABASE_NAME ?? 'botany_db';
+    const COLLECTION_NAME = process.env.COLLECTION_NAME ?? 'plantas_medicinales';
+    const database = client.db(DB_NAME);
     const specimens = database.collection<EspecimenType>(
-      'plantas_medicinales'
+      COLLECTION_NAME
     );
 
     const query = id

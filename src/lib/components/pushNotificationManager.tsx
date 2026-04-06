@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from '../styles/PushNotifications.module.css';
+import { usePushNotifications } from '#@/app/context/pushNotificationContext';
 import { sendNotification } from '#@/app/actions/notifications';
 import type { PushSubscription as WebPushSubscription } from 'web-push';
 
@@ -35,10 +36,10 @@ export function PushNotificationManager() {
         ),
       ) as WebPushSubscription;
       await sendNotification(
-        message, serializedSub 
+        message, serializedSub
       );
       setMessage(
-        '' 
+        ''
       );
     }
   }
