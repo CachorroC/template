@@ -5,24 +5,19 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import EspecimenForm from './form/especimenForm';
-import PlantCookbook from './display/plantCookbook';
-import { EspecimenType } from '../types/especimenTypes';
+// import TemplateForm from './form/TemplateForm'; // Renamed import if exists
+// import DataDisplay from './display/DataDisplay'; // Renamed import if exists
+import { TemplateType, MediaItem } from '../types/template';
 import Link from 'next/link';
 import { useAccordionScroll } from '#@/app/context/AcordionScrollContext';
 import buttonStyles from '../styles/buttons.module.css';
 
-interface PlantBase {
-  src: string;
-  alt: string;
-}
-
 export default function SpecimenEditSelection(
   {
-    plantData,
+    data,
     isStandalone = false,
   }: {
-    plantData    : EspecimenType;
+    data         : TemplateType;
     isStandalone?: boolean;
   }
 ) {
@@ -51,40 +46,40 @@ export default function SpecimenEditSelection(
   const defaultImage
     = 'https://via.placeholder.com/400x300?text=No+Image+Available';
 
-  // Extract available images from the PlantDictionary into a flat array
+  // Extract available images from the gallery into a flat array
   const carouselImages = useMemo(
     () => {
-      const imgs: PlantBase[] = [];
+      const imgs: MediaItem[] = [];
 
-      if ( plantData.imagenes ) {
-        if ( plantData.imagenes.flor ) {
+      if ( data.gallery ) {
+        if ( data.gallery.primary ) {
           imgs.push(
-            plantData.imagenes.flor
+            data.gallery.primary
           );
         }
 
-        if ( plantData.imagenes.hojas ) {
+        if ( data.gallery.secondary ) {
           imgs.push(
-            plantData.imagenes.hojas
+            data.gallery.secondary
           );
         }
 
-        if ( plantData.imagenes.tallo ) {
+        if ( data.gallery.detail ) {
           imgs.push(
-            plantData.imagenes.tallo
+            data.gallery.detail
           );
         }
 
-        if ( plantData.imagenes.preparacion ) {
+        if ( data.gallery.extra ) {
           imgs.push(
-            plantData.imagenes.preparacion
+            data.gallery.extra
           );
         }
       }
 
       return imgs;
     }, [
-      plantData.imagenes
+      data.gallery
     ]
   );
 
@@ -167,7 +162,7 @@ export default function SpecimenEditSelection(
         el: HTMLDivElement | null
       ) => {
         if ( el ) {
-          cardRefs.current[ plantData.nombreCientifico ] = el;
+          cardRefs.current[ data.title ] = el;
         }
       }}
     >
@@ -263,8 +258,8 @@ export default function SpecimenEditSelection(
                       height: '100%',
                     },
                   }}
-                  image={plantData.imageUrl || defaultImage}
-                  alt={plantData.nombreCientifico}
+                  image={data.image || defaultImage}
+                  alt={data.title}
                 />
               )}
         </Box>
@@ -284,16 +279,10 @@ export default function SpecimenEditSelection(
         >
           {isEditing
             ? (
-                <EspecimenForm
-                  initialData={plantData}
-                  setIsEditing={setIsEditing}
-                />
+                <div>Editing mode - Form placeholder</div>
               )
             : (
-                <PlantCookbook
-                  plant={plantData}
-                  setIsEditing={setIsEditing}
-                />
+                <div>Viewing mode - Display placeholder</div>
               )}
           <div
             style={{
@@ -325,7 +314,7 @@ export default function SpecimenEditSelection(
             </button>
 
             <Link
-              href={`/hierba/${ plantData.nombreCientifico }`}
+              href={`/hierba/${ data.title }`}
               className={`${ buttonStyles.md3Btn } ${ buttonStyles.md3BtnTonal }`}
             >
               <span

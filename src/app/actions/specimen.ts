@@ -8,22 +8,23 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import clientPromise from '#@/lib/connection/mongodb';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import { TemplateType } from '#@/lib/types/template';
 
 // --- UPSERT ACTIONS ---
 
 async function upsertSpecimenToDB(
   {
     data
-  }: { data: EspecimenType }
+  }: { data: TemplateType }
 ) {
   try {
     const client = await clientPromise;
     const DB_NAME = process.env.DATABASE_NAME ?? 'template_db';
     const COLLECTION_NAME = process.env.COLLECTION_NAME ?? 'plantas_medicinales';
     const database = client.db(
-      DB_NAME 
+      DB_NAME
     );
-    const specimens = database.collection<EspecimenType>(
+    const specimens = database.collection<TemplateType>(
       COLLECTION_NAME
     );
 
@@ -39,7 +40,7 @@ async function upsertSpecimenToDB(
           ),
         }
       : {
-          nombreCientifico: data.nombreCientifico,
+          title: data.title,
         };
 
     const result = await specimens.findOneAndUpdate(
@@ -83,7 +84,7 @@ async function upsertSpecimenToDB(
 async function upsertSpecimenToJSON(
   {
     data
-  }: { data: EspecimenType }
+  }: { data: TemplateType }
 ) {
   try {
     const jsonFilePath = path.join(
@@ -95,7 +96,7 @@ async function upsertSpecimenToJSON(
     );
     const plantList = JSON.parse(
       fileContents
-    ) as EspecimenType[];
+    ) as TemplateType[];
 
     const {
       _id: _, ...jsonSafeData
@@ -105,7 +106,7 @@ async function upsertSpecimenToJSON(
       (
         plant
       ) => {
-        return plant.nombreCientifico === jsonSafeData.nombreCientifico;
+        return plant.title === jsonSafeData.title;
       }
     );
 
@@ -150,7 +151,7 @@ async function upsertSpecimenToJSON(
 export async function upsertSpecimen(
   {
     data
-  }: { data: EspecimenType }
+  }: { data: TemplateType }
 ) {
   const [
     dbResult,
@@ -217,10 +218,10 @@ export async function upsertSpecimen(
 async function deleteSpecimenFromDB(
   {
     id,
-    nombreCientifico,
+    title,
   }: {
-    id?             : string;
-    nombreCientifico: string;
+    id?  : string;
+    title: string;
   }
 ) {
   try {
@@ -228,9 +229,9 @@ async function deleteSpecimenFromDB(
     const DB_NAME = process.env.DATABASE_NAME ?? 'botany_db';
     const COLLECTION_NAME = process.env.COLLECTION_NAME ?? 'plantas_medicinales';
     const database = client.db(
-      DB_NAME 
+      DB_NAME
     );
-    const specimens = database.collection<EspecimenType>(
+    const specimens = database.collection<TemplateType>(
       COLLECTION_NAME
     );
 
@@ -241,7 +242,7 @@ async function deleteSpecimenFromDB(
           ),
         }
       : {
-          nombreCientifico,
+          title,
         };
     const result = await specimens.deleteOne(
       query
@@ -273,9 +274,9 @@ async function deleteSpecimenFromDB(
 
 async function deleteSpecimenFromJSON(
   {
-    nombreCientifico,
+    title,
   }: {
-    nombreCientifico: string;
+    title: string;
   }
 ) {
   try {
@@ -288,14 +289,14 @@ async function deleteSpecimenFromJSON(
     );
     let plantList = JSON.parse(
       fileContents
-    ) as EspecimenType[];
+    ) as TemplateType[];
 
     const initialLength = plantList.length;
     plantList = plantList.filter(
       (
         plant
       ) => {
-        return plant.nombreCientifico !== nombreCientifico;
+        return plant.title !== title;
       }
     );
 
@@ -334,10 +335,10 @@ async function deleteSpecimenFromJSON(
 export async function deleteSpecimen(
   {
     id,
-    nombreCientifico,
+    title,
   }: {
-    id?             : string;
-    nombreCientifico: string;
+    id?  : string;
+    title: string;
   }
 ) {
   const [
@@ -348,12 +349,12 @@ export async function deleteSpecimen(
       deleteSpecimenFromDB(
         {
           id,
-          nombreCientifico,
+          title,
         }
       ),
       deleteSpecimenFromJSON(
         {
-          nombreCientifico,
+          title,
         }
       ),
     ]

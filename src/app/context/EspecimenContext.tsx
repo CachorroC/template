@@ -1,209 +1,286 @@
 'use client';
-import { EspecimenType } from '#@/lib/types/especimenTypes';
-import React, {
-  createContext,
+import { TemplateType } from '#@/lib/types/template';
+import React, { createContext,
   useReducer,
   useContext,
   ReactNode,
   Dispatch,
-  useEffect,
-} from 'react';
+  useEffect, } from 'react';
 
 // --- State & Action Types ---
-interface EspecimenState {
-  data: EspecimenType[];
-  filteredData: EspecimenType[];
-  searchName: string;
-  searchDolor: string;
+interface TemplateState {
+  data          : TemplateType[];
+  filteredData  : TemplateType[];
+  searchName    : string;
+  searchFilter  : string;
   filterProperty: string;
-  sortOrder: 'ASC' | 'DESC' | 'NONE';
+  sortOrder     : 'ASC' | 'DESC' | 'NONE';
 }
 
 type Action =
-  | { type: 'INIT_DATA'; payload: EspecimenType[] }
+  | { type: 'INIT_DATA'; payload: TemplateType[] }
   | { type: 'SET_SEARCH_NAME'; payload: string }
-  | { type: 'SET_SEARCH_DOLOR'; payload: string }
+  | { type: 'SET_SEARCH_FILTER'; payload: string }
   | { type: 'SET_FILTER_PROPERTY'; payload: string }
   | { type: 'SET_SORT'; payload: 'ASC' | 'DESC' | 'NONE' }
   | { type: 'RESET_FILTERS' };
 
 // --- Helper Functions ---
 
-const normalizeText = (text: string | undefined | null): string => {
-  if (!text) {
+const normalizeText = (
+  text: string | undefined | null 
+): string => {
+  if ( !text ) {
     return '';
   }
 
   return text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .normalize(
+      'NFD' 
+    )
+    .replace(
+      /[\u0300-\u036f]/g, '' 
+    )
     .toLowerCase();
 };
 
-const applyCriteria = (state: EspecimenState): EspecimenType[] => {
-  let result = [...state.data];
+const applyCriteria = (
+  state: TemplateState 
+): TemplateType[] => {
+  let result = [
+    ...state.data
+  ];
 
-  // 1. Apply Search by Name (Scientific and Common names)
-  if (state.searchName) {
-    const normalizedNameSearch = normalizeText(state.searchName);
+  // 1. Apply Search by Name
+  if ( state.searchName ) {
+    const normalizedNameSearch = normalizeText(
+      state.searchName 
+    );
 
-    result = result.filter((e) => {
-      const matchCientifico = normalizeText(e.nombreCientifico).includes(
-        normalizedNameSearch,
-      );
+    result = result.filter(
+      (
+        e 
+      ) => {
+        const matchTitle = normalizeText(
+          e.title 
+        ).includes(
+          normalizedNameSearch,
+        );
 
-      const safeNombresComunes = e.nombresComunes || [];
+        const safeTags = e.tags || [];
 
-      const matchComunes = safeNombresComunes.some((nombre) => {
-        return normalizeText(nombre).includes(normalizedNameSearch);
-      });
+        const matchTags = safeTags.some(
+          (
+            tag 
+          ) => {
+            return normalizeText(
+              tag 
+            ).includes(
+              normalizedNameSearch 
+            );
+          } 
+        );
 
-      return matchCientifico || matchComunes;
-    });
+        return matchTitle || matchTags;
+      } 
+    );
   }
 
-  // 2. Apply Search by Illness/Dolor (malesFisicos)
-  if (state.searchDolor) {
-    const normalizedDolorSearch = normalizeText(state.searchDolor);
+  // 2. Apply Search by Filter/Categories
+  if ( state.searchFilter ) {
+    const normalizedFilterSearch = normalizeText(
+      state.searchFilter 
+    );
 
-    result = result.filter((e) => {
-      const safeMalesFisicos = e.malesFisicos || [];
+    result = result.filter(
+      (
+        e 
+      ) => {
+        const safeCategories = e.categories || [];
 
-      return safeMalesFisicos.some((mal) => {
-        return normalizeText(mal).includes(normalizedDolorSearch);
-      });
-    });
+        return safeCategories.some(
+          (
+            cat 
+          ) => {
+            return normalizeText(
+              cat 
+            ).includes(
+              normalizedFilterSearch 
+            );
+          } 
+        );
+      } 
+    );
   }
 
-  // 3. Apply Filter (e.g., filtering by 'propiedadesMedicinales')
-  if (state.filterProperty) {
-    result = result.filter((e) => {
-      const safePropiedades = e.propiedadesMedicinales || [];
+  // 3. Apply Property Filter
+  if ( state.filterProperty ) {
+    result = result.filter(
+      (
+        e 
+      ) => {
+        const safeAttributes = e.attributes || [];
 
-      return safePropiedades.includes(state.filterProperty);
-    });
+        return safeAttributes.includes(
+          state.filterProperty 
+        );
+      } 
+    );
   }
 
-  // 4. Apply Sort (Alphabetically by nombreCientifico)
-  if (state.sortOrder !== 'NONE') {
-    result.sort((a, b) => {
-      const nameA = (a.nombreCientifico || '').toLowerCase();
-      const nameB = (b.nombreCientifico || '').toLowerCase();
+  // 4. Apply Sort
+  if ( state.sortOrder !== 'NONE' ) {
+    result.sort(
+      (
+        a, b 
+      ) => {
+        const nameA = ( a.title || '' ).toLowerCase();
+        const nameB = ( b.title || '' ).toLowerCase();
 
-      if (state.sortOrder === 'ASC') {
-        return nameA.localeCompare(nameB);
-      }
+        if ( state.sortOrder === 'ASC' ) {
+          return nameA.localeCompare(
+            nameB 
+          );
+        }
 
-      return nameB.localeCompare(nameA);
-    });
+        return nameB.localeCompare(
+          nameA 
+        );
+      } 
+    );
   }
 
   return result;
 };
 
 // --- Reducer ---
-const especimenReducer = (
-  state: EspecimenState,
+const templateReducer = (
+  state: TemplateState,
   action: Action,
-): EspecimenState => {
+): TemplateState => {
   const newState = {
     ...state,
   };
 
-  switch (action.type) {
-    case 'INIT_DATA':
-      newState.data = action.payload;
+  switch ( action.type ) {
+      case 'INIT_DATA':
+        newState.data = action.payload;
 
-      break;
+        break;
 
-    case 'SET_SEARCH_NAME':
-      newState.searchName = action.payload;
+      case 'SET_SEARCH_NAME':
+        newState.searchName = action.payload;
 
-      break;
+        break;
 
-    case 'SET_SEARCH_DOLOR':
-      newState.searchDolor = action.payload;
+      case 'SET_SEARCH_FILTER':
+        newState.searchFilter = action.payload;
 
-      break;
+        break;
 
-    case 'SET_FILTER_PROPERTY':
-      newState.filterProperty = action.payload;
+      case 'SET_FILTER_PROPERTY':
+        newState.filterProperty = action.payload;
 
-      break;
+        break;
 
-    case 'SET_SORT':
-      newState.sortOrder = action.payload;
+      case 'SET_SORT':
+        newState.sortOrder = action.payload;
 
-      break;
+        break;
 
-    case 'RESET_FILTERS':
-      newState.searchName = '';
-      newState.searchDolor = '';
-      newState.filterProperty = '';
-      newState.sortOrder = 'NONE';
+      case 'RESET_FILTERS':
+        newState.searchName = '';
+        newState.searchFilter = '';
+        newState.filterProperty = '';
+        newState.sortOrder = 'NONE';
 
-      break;
+        break;
 
-    default:
-      return state;
+      default:
+        return state;
   }
 
-  newState.filteredData = applyCriteria(newState);
+  newState.filteredData = applyCriteria(
+    newState 
+  );
 
   return newState;
 };
 
 // --- Context Setup ---
 interface ContextProps {
-  state: EspecimenState;
+  state   : TemplateState;
   dispatch: Dispatch<Action>;
 }
 
-const EspecimenContext = createContext<ContextProps | null>(null);
+const TemplateContext = createContext<ContextProps | null>(
+  null 
+);
 
-export const EspecimenProvider = ({
-  children,
-  initialEspecimens,
-}: {
-  children: ReactNode;
-  initialEspecimens: EspecimenType[];
-}) => {
-  const initialState: EspecimenState = {
-    data: [...initialEspecimens],
-    filteredData: [...initialEspecimens],
-    searchName: '',
-    searchDolor: '',
+export const TemplateProvider = (
+  {
+    children,
+    initialData,
+  }: {
+    children   : ReactNode;
+    initialData: TemplateType[];
+  } 
+) => {
+  const initialState: TemplateState = {
+    data: [
+      ...initialData
+    ],
+    filteredData: [
+      ...initialData
+    ],
+    searchName    : '',
+    searchFilter  : '',
     filterProperty: '',
-    sortOrder: 'NONE',
+    sortOrder     : 'NONE',
   };
 
-  const [state, dispatch] = useReducer(especimenReducer, initialState);
+  const [
+    state,
+    dispatch
+  ] = useReducer(
+    templateReducer, initialState 
+  );
 
-  useEffect(() => {
-    dispatch({
-      type: 'INIT_DATA',
-      payload: initialEspecimens,
-    });
-  }, [initialEspecimens]);
+  useEffect(
+    () => {
+      dispatch(
+        {
+          type   : 'INIT_DATA',
+          payload: initialData,
+        } 
+      );
+    }, [
+      initialData
+    ] 
+  );
 
   return (
-    <EspecimenContext.Provider
+    <TemplateContext.Provider
       value={{
         state,
         dispatch,
       }}
     >
       {children}
-    </EspecimenContext.Provider>
+    </TemplateContext.Provider>
   );
 };
 
 // --- Custom Hook ---
-export const useEspecimen = () => {
-  const context = useContext(EspecimenContext);
+export const useTemplate = () => {
+  const context = useContext(
+    TemplateContext 
+  );
 
-  if (!context) {
-    throw new Error('useEspecimen must be used within an EspecimenProvider');
+  if ( !context ) {
+    throw new Error(
+      'useTemplate must be used within a TemplateProvider' 
+    );
   }
 
   return context;

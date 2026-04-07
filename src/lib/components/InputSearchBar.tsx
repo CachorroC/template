@@ -1,5 +1,5 @@
 'use client';
-import { useEspecimen } from '#@/app/context/EspecimenContext';
+import { useTemplate } from '#@/app/context/EspecimenContext';
 import { useSearch } from '#@/app/context/search-context';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { bodyLarge } from '../styles/fonts/typography.module.css';
@@ -9,7 +9,7 @@ import { Route } from 'next';
 
 export const InputSearchBar = () => {
   const { search, setSearch } = useSearch();
-  const { state, dispatch } = useEspecimen();
+  const { state, dispatch } = useTemplate();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -21,10 +21,10 @@ export const InputSearchBar = () => {
         {state.data.map((carpeta) => {
           return (
             <option
-              value={carpeta.nombreCientifico}
-              key={carpeta.nombreCientifico}
+              value={carpeta.title}
+              key={carpeta.title}
               onClick={() => {
-                return router.push(`/hierba/${carpeta.nombreCientifico}`);
+                return router.push(`/hierba/${carpeta.title}`);
               }}
             />
           );
