@@ -18,9 +18,11 @@ async function upsertSpecimenToDB(
 ) {
   try {
     const client = await clientPromise;
-    const DB_NAME = process.env.DATABASE_NAME ?? 'botany_db';
+    const DB_NAME = process.env.DATABASE_NAME ?? 'template_db';
     const COLLECTION_NAME = process.env.COLLECTION_NAME ?? 'plantas_medicinales';
-    const database = client.db(DB_NAME);
+    const database = client.db(
+      DB_NAME 
+    );
     const specimens = database.collection<EspecimenType>(
       COLLECTION_NAME
     );
@@ -225,7 +227,9 @@ async function deleteSpecimenFromDB(
     const client = await clientPromise;
     const DB_NAME = process.env.DATABASE_NAME ?? 'botany_db';
     const COLLECTION_NAME = process.env.COLLECTION_NAME ?? 'plantas_medicinales';
-    const database = client.db(DB_NAME);
+    const database = client.db(
+      DB_NAME 
+    );
     const specimens = database.collection<EspecimenType>(
       COLLECTION_NAME
     );
