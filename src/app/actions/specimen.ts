@@ -33,7 +33,7 @@ async function upsertSpecimenToDB(
       ...updateData
     } = data as any;
 
-    const query = _id
+    const query: any = _id
       ? {
           _id: new ObjectId(
             _id
@@ -235,7 +235,7 @@ async function deleteSpecimenFromDB(
       COLLECTION_NAME
     );
 
-    const query = id
+    const query: any = id
       ? {
           _id: new ObjectId(
             id
