@@ -35,7 +35,7 @@ export const InputSearchBar = () => {
                 onClick={
                   () => {
                     return router.push(
-                      `/shop/${ carpeta.title }`
+                      `/shop/${ carpeta.title }` as Route
                     );
                   }
                 }

@@ -16,6 +16,7 @@
   font-size: 3rem;
   font-family: var(--font-playfair-display);
   background: linear-gradient(135deg, #2e7d32 0%, #81c784 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;

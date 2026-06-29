@@ -11,6 +11,7 @@ import { TemplateType, MediaItem } from '../types/template';
 import Link from 'next/link';
 import { useAccordionScroll } from '#@/app/context/AcordionScrollContext';
 import buttonStyles from '../styles/buttons.module.css';
+import { Route } from 'next';
 
 export default function SpecimenEditSelection(
   {
@@ -314,7 +315,7 @@ export default function SpecimenEditSelection(
             </button>
 
             <Link
-              href={`/hierba/${ data.title }`}
+              href={`/shop/${ data.title }`as Route}
               className={`${ buttonStyles.md3Btn } ${ buttonStyles.md3BtnTonal }`}
             >
               <span

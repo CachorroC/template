@@ -1,6 +1,5 @@
 'use client';
-
-import { use, useState, useMemo } from 'react';
+import React, { use, useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { products, Product } from '#@/lib/data/products';
@@ -216,16 +215,20 @@ export default function ShopPage(
                         <h3>{product.title}</h3>
                         <p className={styles.description}>{product.description}</p>
                         <div className={styles.footer}>
-                          <span className={styles.price}>${product.price.toFixed(
-                            2
-                          )}</span>
+                          <span className={styles.price}>
+                            ${product.price.toFixed(
+                              2
+                            )}
+                          </span>
                           <button onClick={() => {
                             return addToCart(
                               product
                             );
                           }}
                           >
-                            <span className="material-symbols-outlined">add_shopping_cart</span>
+                            <span className="material-symbols-outlined">
+                              add_shopping_cart
+                            </span>
                             Agregar
                           </button>
                         </div>
@@ -236,16 +239,19 @@ export default function ShopPage(
               )
             )
           : (
-              <div style={{
-                textAlign : 'center',
-                gridColumn: '1 / -1',
-                padding   : '4rem'
-              }}
-              >
-                <span className="material-symbols-outlined" style={{
-                  fontSize: '3rem',
-                  color   : 'var(--primary)'
+              <div
+                style={{
+                  textAlign : 'center',
+                  gridColumn: '1 / -1',
+                  padding   : '4rem',
                 }}
+              >
+                <span
+                  className="material-symbols-outlined"
+                  style={{
+                    fontSize: '3rem',
+                    color   : 'var(--primary)',
+                  }}
                 >
                   sentiment_dissatisfied
                 </span>
